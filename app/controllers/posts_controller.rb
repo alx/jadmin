@@ -2,8 +2,14 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.xml
   def index
-    @posts = Post.all
-
+    @posts = []
+    
+    Dir.glob(File.join(Jadmin::Application.config.jekyll_folder, '_posts', '*.markdown')).each do |post|
+      @posts << File.basename(post, '.markdown')
+    end
+    
+    @posts.reverse!
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @posts }
@@ -13,8 +19,9 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.xml
   def show
-    @post = Post.find(params[:id])
-
+    
+    @post = parse_post(params[:id])
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @post }
@@ -34,13 +41,13 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    @post = Post.find(params[:id])
+    @post = parse_post(params[:id])
   end
 
   # POST /posts
   # POST /posts.xml
   def create
-    @post = Post.new(params[:post])
+    @post = parse_post(params[:id])
 
     respond_to do |format|
       if @post.save
@@ -56,7 +63,7 @@ class PostsController < ApplicationController
   # PUT /posts/1
   # PUT /posts/1.xml
   def update
-    @post = Post.find(params[:id])
+    @post = parse_post(params[:id])
 
     respond_to do |format|
       if @post.update_attributes(params[:post])
@@ -72,12 +79,46 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.xml
   def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
+    @post = parse_post(params[:id])
 
     respond_to do |format|
       format.html { redirect_to(posts_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  private
+  
+  def parse_post(post_id)
+    post = {:id => post_id,  :content => "", :headers => []}
+    is_header = false
+    end_header = false
+    
+    post_path = File.join(Jadmin::Application.config.jekyll_folder, '_posts', "#{post_id}.markdown")
+    
+    File.open(post_path, 'r') do |file|
+      while (line = file.gets)
+        if line == "---\n"
+          if is_header
+            end_header = true 
+            is_header = false
+          else
+            is_header = true
+          end
+        else
+          if is_header
+            p line
+            key,  value = line.split(":")
+            post[:headers] << {:key => key.strip, :value => value.strip}
+          end
+          if end_header
+            post[:content] << line
+          end
+        end
+      end
+    end
+    
+    post[:content] = Maruku.new(post[:content]).to_html
+    post
   end
 end

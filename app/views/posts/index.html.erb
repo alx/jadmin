@@ -3,13 +3,15 @@
 <table>
   <tr>
     <th></th>
+     <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @posts.each do |post| %>
   <tr>
-    <td><%= link_to 'Show', post %></td>
+    <td><%= post %></td>
+    <td><%= link_to 'Show', "/posts/#{post}" %></td>
     <td><%= link_to 'Edit', edit_post_path(post) %></td>
     <td><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

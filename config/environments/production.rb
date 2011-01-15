@@ -46,4 +46,9 @@ Jadmin::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
+  # git config
+  
+  # jekyll folder config
+  config.jekyll_folder = '/var/www/www.tetalab.org'
 end

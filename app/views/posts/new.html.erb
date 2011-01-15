@@ -1,5 +1,32 @@
 <h1>New post</h1>
 
-<%= render 'form' %>
+<form action="/posts/2011-01-12-ardupilot-flash" method="post" accept-charset="utf-8">
+    
+    <input type="hidden" name="header[layout]" value="post" id="header[layout]">
+    
+    <p>
+        <label for="header_title">title</label>
+        <input type="text" name="header[title]" value="" id="header_title">
+    </p>
+    
+    <p>
+        <label for="header_description">description</label>
+        <input type="text" name="header[description]" value="" id="header_description">
+    </p>
+    
+    <p>
+        <label for="header_image">image</label>
+        <input type="text" name="header[image]" value="/images/" id="header_image">
+    </p>
+    
+    <p>
+        <label for="header_author">author</label>
+        <input type="text" name="header[author]" value="" id="header_author">
+    </p>
+    
+    <textarea name="content" rows="8" cols="40"></textarea>
+    
+    <p><input type="submit" value="Create &rarr;"></p>
+</form>
 
 <%= link_to 'Back', posts_path %>

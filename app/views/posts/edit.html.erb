@@ -1,6 +1,19 @@
 <h1>Editing post</h1>
 
-<%= render 'form' %>
+<form action="/posts/<%= @post[:id] %>" method="post" accept-charset="utf-8">
+    
+    <input type="hidden" name="header[layout]" value="post" id="header[layout]">
+    
+    <% @post[:headers].reject{|header| header[:key] == "layout"}.each do |header| %>
+    <p><label for="header_<%= header[:key] %>"><%= header[:key] %></label><input type="text" name="header[<%= header[:key] %>]" value="<%= header[:value] %>" id="header_<%= header[:key] %>"></p>
+    <% end %>
+    
+    <textarea name="content" rows="8" cols="40">
+        <%= @post[:content].html_safe %>
+    </textarea>
+    
+    <p><input type="submit" value="Edit &rarr;"></p>
+</form>
 
-<%= link_to 'Show', @post %> |
+<%= link_to 'Show', "/posts/#{@post[:id]}" %> |
 <%= link_to 'Back', posts_path %>

@@ -1,5 +1,14 @@
 <p id="notice"><%= notice %></p>
 
+<h2><%= @post[:id] %></h2>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<ul>
+    <% @post[:headers].each do |header| %>
+    <li><%= header[:key] %>: <%= header[:value] %></li>
+    <% end %>
+</ul>
+
+<%= @post[:content].html_safe %>
+
+<%= link_to 'Edit', edit_post_path(@post[:id]) %> |
 <%= link_to 'Back', posts_path %>
