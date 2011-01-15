@@ -1,27 +1,33 @@
 <h1>New post</h1>
 
-<form action="/posts/2011-01-12-ardupilot-flash" method="post" accept-charset="utf-8">
+<form action="/posts" method="post" accept-charset="utf-8">
     
-    <input type="hidden" name="header[layout]" value="post" id="header[layout]">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="headers[layout]" value="post" id="headers[layout]">
+    
+    <p>
+        <label for="date">date</label>
+        <input type="text" name="date" value="<%= Time.now.strftime("%d/%m/%Y") %>" id="date">
+    </p>
     
     <p>
         <label for="header_title">title</label>
-        <input type="text" name="header[title]" value="" id="header_title">
+        <input type="text" name="headers[title]" value="" id="header_title">
     </p>
     
     <p>
         <label for="header_description">description</label>
-        <input type="text" name="header[description]" value="" id="header_description">
+        <input type="text" name="headers[description]" value="" id="header_description">
     </p>
     
     <p>
         <label for="header_image">image</label>
-        <input type="text" name="header[image]" value="/images/" id="header_image">
+        <input type="text" name="headers[image]" value="/images/" id="header_image">
     </p>
     
     <p>
         <label for="header_author">author</label>
-        <input type="text" name="header[author]" value="" id="header_author">
+        <input type="text" name="headers[author]" value="" id="header_author">
     </p>
     
     <textarea name="content" rows="8" cols="40"></textarea>
