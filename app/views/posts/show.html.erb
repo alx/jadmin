@@ -8,7 +8,7 @@
     <% end %>
 </ul>
 
-<%= Maruku.new(post[:content]).to_html.html_safe %>
+<%= Maruku.new(@post[:content]).to_html.html_safe %>
 
 <%= link_to 'Edit', edit_post_path(@post[:id]) %> |
 <%= link_to 'Back', posts_path %>

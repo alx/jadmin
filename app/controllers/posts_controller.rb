@@ -137,7 +137,7 @@ class PostsController < ApplicationController
     
     File.open(post_path, 'r') do |file|
       while (line = file.gets)
-        if line == "---\n"
+        if line == "---\n" && !end_header
           if is_header
             end_header = true 
             is_header = false
