@@ -11,7 +11,9 @@ class PostsController < ApplicationController
       @posts << File.basename(post, '.markdown')
     end
     
-    @posts.reverse!
+    @posts.sort! do |post_a, post_b|
+      Date.strptime(post_a, "%Y-%m-%d") <=> Date.strptime(post_b, "%Y-%m-%d")
+    end
     
     respond_to do |format|
       format.html # index.html.erb
