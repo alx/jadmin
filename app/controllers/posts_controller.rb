@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   
+  before_filter :authenticate, :except => [:index, :show]
+  
   # GET /posts
   # GET /posts.xml
   def index
@@ -171,5 +173,12 @@ class PostsController < ApplicationController
   
   def random_permalink(seed = nil)
     Digest::SHA1.hexdigest("#{seed}#{Time.now.to_s.split(//).sort_by {rand}}")
+  end
+  
+  def authenticate
+    auth_config = Jadmin::Application.config.authenticate
+    authenticate_or_request_with_http_basic "My custom message" do |user_name, password|
+      user_name == auth_config.username && password == auth_config.password
+    end
   end
 end
