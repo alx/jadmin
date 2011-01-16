@@ -157,7 +157,6 @@ class PostsController < ApplicationController
       end
     end
     
-    post[:content] = Maruku.new(post[:content]).to_html
     post
   end
   
