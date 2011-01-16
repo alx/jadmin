@@ -9,12 +9,27 @@
     <p><label for="header_<%= header[:key] %>"><%= header[:key] %></label><input type="text" name="headers[<%= header[:key] %>]" value="<%= header[:value] %>" id="header_<%= header[:key] %>"></p>
     <% end %>
     
-    <textarea name="content" rows="8" cols="40">
+    <div id="content-button-bar"></div>
+    
+    <textarea name="content" rows="8" cols="40" id='content'>
         <%= @post[:content] %>
     </textarea>
     
+    <div id="content-preview"></div>
+    
+    <input type="text" name="copy_html" value="" id="copy_html">
+    
     <p><input type="submit" value="Edit &rarr;"></p>
 </form>
+
+<script type="text/javascript">
+    setup_wmd({
+        input: "content",
+        button_bar: "content-button-bar",
+        preview: "content-preview",
+        output: "copy_html"
+    });
+</script>
 
 <%= link_to 'Show', "/posts/#{@post[:id]}" %> |
 <%= link_to 'Back', posts_path %>
