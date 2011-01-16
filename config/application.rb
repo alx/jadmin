@@ -43,5 +43,8 @@ module Jadmin
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    
+    # authentification data
+    config.authenticate = YAML::load(File.open(File.join(::Rails.root.to_s, 'config', 'auth_config.yml')))
   end
 end

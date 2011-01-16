@@ -178,7 +178,7 @@ class PostsController < ApplicationController
   def authenticate
     auth_config = Jadmin::Application.config.authenticate
     authenticate_or_request_with_http_basic "My custom message" do |user_name, password|
-      user_name == auth_config.username && password == auth_config.password
+      user_name == auth_config['username'].to_s && password == auth_config['password'].to_s
     end
   end
 end
