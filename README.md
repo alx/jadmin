@@ -6,7 +6,7 @@ Jekyll administration tool in Rails 3
 
 * Ruby bundler
 * [Jekyll](http://www.jekyllrb.com)
-* Apache server with vhost to _/var/www/jekyll.website.org/_site/_
+* Apache server with vhost to /var/www/jekyll.website.org/_site/
 
 ## Install
 
